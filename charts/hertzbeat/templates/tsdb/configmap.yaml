@@ -22,4 +22,4 @@ metadata:
   labels:
     {{- include "hertzbeat.labels" . | nindent 4 }}
 data:
-  TZ: "{{ .Values.database.timezone }}"
+  TZ: "{{ .Values.tsdb.timezone }}"
