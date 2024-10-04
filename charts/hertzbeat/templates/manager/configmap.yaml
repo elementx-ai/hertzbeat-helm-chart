@@ -76,17 +76,17 @@ data:
         driver-class-name: org.postgresql.Driver
         username: postgres
         password: {{ .Values.postgresql.auth.postgresPassword }}
-        url: jdbc:postgresql://{{ include "hertzbeat.database" . }}:5432/hertzbeat
+        url: jdbc:postgresql://{{ include "hertzbeat.database" . }}:5432/{{ .Values.postgresql.auth.database }}
         hikari:
           max-lifetime: 120000
       jpa:
         show-sql: false
         database-platform: org.eclipse.persistence.platform.database.PostgreSQLPlatform
-        database: postgresql
+        database: {{ .Values.postgresql.auth.database }}
         properties:
           eclipselink:
             logging:
-              level: SEVERE
+              level: INFO
       flyway:
         enabled: true
         clean-disabled: true
@@ -95,15 +95,9 @@ data:
         locations:
           - classpath:db/migration/{vendor}
       mail:
-        # Attention: this is mail server address.
-        # 请注意此为邮件服务器地址：qq邮箱为 smtp.qq.com qq 企业邮箱为 smtp.exmail.qq.com
         host: smtp.qq.com
         username: tancloud@qq.com
-        # Attention: this is not email account password, this requires an email authorization code
-        # 请注意此非邮箱账户密码 此需填写邮箱授权码
         password: your-password
-        #Attention: Tencent mail smtps 465,smtp 587
-        #请注意腾讯邮箱465为smtps,587为smtp
         port: 587
         properties:
           mail:
@@ -125,7 +119,6 @@ data:
     warehouse:
       store:
         # store history metrics data, enable only one below
-        # 存储历史数据方式, 下方只能enabled启用一种方式
         jpa:
           enabled: false
         victoria-metrics:
@@ -151,7 +144,6 @@ data:
           # org.apache.hertzbeat.warehouse.config.IotDbVersion: V_0_13 || V_1_0
           version: V_1_0
           query-timeout-in-ms: -1
-          # 数据存储时间：默认'7776000000'（90天,单位为毫秒,-1代表永不过期）
           # data expire time, unit:ms, default '7776000000'(90 days, -1:never expire)
           expire-time: '7776000000'
         influxdb:
@@ -163,7 +155,6 @@ data:
           replication: 1
 
         # store real-time metrics data, enable only one below
-        # 存储实时数据方式, 下方只能enabled启用一种方式
         memory:
           enabled: true
           init-size: 16
@@ -278,23 +269,7 @@ data:
       - /h2-console/**===*
 
     # account info config
-    # eg: admin has role [admin,user], password is hertzbeat
-    # eg: tom has role [user], password is hertzbeat
-    # eg: lili has role [guest], plain password is lili, salt is 123, salted password is 1A676730B0C7F54654B0E09184448289
     account:
       - appId: {{ .Values.manager.account.username }}
         credential: {{ .Values.manager.account.password }}
         role: [admin]
-      - appId: tom
-        credential: hertzbeat
-        role: [user]
-      - appId: guest
-        credential: hertzbeat
-        role: [guest]
-      - appId: lili
-        # credential = MD5(password + salt)
-        # plain password: hertzbeat
-        # attention: digest authentication does not support salted encrypted password accounts
-        credential: 94C6B34E7A199A9F9D4E1F208093B489
-        salt: 123
-        role: [user]
