@@ -62,7 +62,7 @@ collector:
 
 postgresql:
   enabled: true
-  nameOverride: hertzbeat-postgresql
+  nameOverride: postgresql
   auth:
     username: postgres
     password: postgres
