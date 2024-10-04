@@ -31,10 +31,6 @@ If release name contains chart name it will be used as a full name.
 {{- printf "%s-collector" (include "hertzbeat.fullname" .) -}}
 {{- end -}}
 
-{{- define "hertzbeat.database" -}}
-{{- printf "%s-database" (include "hertzbeat.fullname" .) -}}
-{{- end -}}
-
 {{- define "hertzbeat.tsdb" -}}
 {{- printf "%s-tsdb" (include "hertzbeat.fullname" .) -}}
 {{- end -}}

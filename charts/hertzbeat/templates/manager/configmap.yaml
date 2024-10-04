@@ -56,7 +56,7 @@ data:
               - 'health'
               - 'env'
         enabled-by-default: on
-    
+
     sureness:
       container: jakarta_servlet
       auths:
@@ -65,18 +65,18 @@ data:
         - jwt
       jwt:
         secret: {{ .Values.manager.jwtSecretKey }}
-    
+
     ---
     spring:
       config:
         activate:
           on-profile: prod
-    
+
       datasource:
         driver-class-name: org.postgresql.Driver
-        username: root
-        password: {{ .Values.database.rootPassword }}
-        url: jdbc:postgresql://{{ include "hertzbeat.database" . }}:5432/hertzbeat
+        username: {{ .Values.postgresql.auth.username }}
+        password: {{ .Values.postgresql.auth.password }}
+        url: jdbc:postgresql://hertzbeat-postgresql:5432/hertzbeat
         hikari:
           max-lifetime: 120000
       jpa:
@@ -93,7 +93,7 @@ data:
         baseline-on-migrate: true
         baseline-version: 1
         locations:
-          - classpath:db/migration/{vendor}    
+          - classpath:db/migration/{vendor}
       mail:
         # Attention: this is mail server address.
         # 请注意此为邮件服务器地址：qq邮箱为 smtp.qq.com qq 企业邮箱为 smtp.exmail.qq.com
@@ -111,7 +111,7 @@ data:
               socketFactoryClass: javax.net.ssl.SSLSocketFactory
               ssl:
                 enable: true
-    
+
     common:
       queue:
         # memory or kafka
@@ -121,7 +121,7 @@ data:
           servers: 127.0.0.1:9092
           metrics-data-topic: async-metrics-data
           alerts-data-topic: async-alerts-data
-    
+
     warehouse:
       store:
         # store history metrics data, enable only one below
@@ -161,7 +161,7 @@ data:
           password: root
           expire-time: '30d'
           replication: 1
-    
+
         # store real-time metrics data, enable only one below
         # 存储实时数据方式, 下方只能enabled启用一种方式
         memory:
@@ -173,7 +173,7 @@ data:
           port: 6379
           password: 123456
           db: 0
-    
+
     alerter:
       # custom console url
       console-url: https://console.tancloud.cn
@@ -191,13 +191,13 @@ data:
       server-chan-webhook-url: https://sctapi.ftqq.com/%s.send
       # gotify
       gotify-webhook-url: http://127.0.0.1/message?token=%s
-    
+
     scheduler:
       server:
         enabled: true
         port: 1158
 
-        
+
   sureness.yml: |+
     resourceRole:
       - /api/account/auth/refresh===post===[admin,user,guest]
@@ -238,9 +238,9 @@ data:
       - /api/status/page/**===post===[admin,user]
       - /api/status/page/**===put===[admin,user]
       - /api/status/page/**===delete===[admin]
-    
+
     # config the resource restful api that need bypass auth protection
-    # rule: api===method 
+    # rule: api===method
     # eg: /api/v1/source3===get means /api/v1/source3===get can be access by anyone, no need auth.
     excludedResource:
       - /api/alerts/report/**===*

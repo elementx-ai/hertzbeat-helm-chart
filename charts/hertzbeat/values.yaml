@@ -22,28 +22,28 @@ manager:
     repository: apache/hertzbeat
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: ''
   account:
-    username: "admin"
-    password: "hertzbeat"
-  jwtSecretKey: "CyaFv0bwq2Eik0jdrKUtsA6dx3sDJeFV143R
-                 LnfKefTjsIfJLBa2YkhEqEGtcHDTNe4CU6+9
-                 8tVt4bisXQ13rbN0oxhUZR73M6EByXIO+SV5
-                 dKhaX0csgOCTlCxq20yhmUea6H6JIpSE2Rwp"
-  podAnnotations: { }
-  podSecurityContext: { }
-  securityContext: { }  
-  resources: { }
-  nodeSelector: { }
-  tolerations: [ ]
-  affinity: { }
+    username: 'admin'
+    password: 'hertzbeat'
+  jwtSecretKey: 'CyaFv0bwq2Eik0jdrKUtsA6dx3sDJeFV143R
+    LnfKefTjsIfJLBa2YkhEqEGtcHDTNe4CU6+9
+    8tVt4bisXQ13rbN0oxhUZR73M6EByXIO+SV5
+    dKhaX0csgOCTlCxq20yhmUea6H6JIpSE2Rwp'
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 
 collector:
   image:
     repository: apache/hertzbeat-collector
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: ''
   replicaCount: 1
   autoscaling:
     enabled: false
@@ -51,65 +51,47 @@ collector:
     maxReplicas: 20
     targetCPUUtilizationPercentage: 80
     targetMemoryUtilizationPercentage: 80
-  
-  podAnnotations: { }
-  podSecurityContext: { }
-  securityContext: { }
-  resources: { }
-  nodeSelector: { }
-  tolerations: [ ]
-  affinity: { }
 
-database:
-  image:
-    repository: postgres
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: "15"
-  timezone: "Asia/Shanghai"
-  rootPassword: "123456"
-  persistence:
-    enabled: true
-    existingClaim: ""
-    storageClass: ""
-    subPath: ""
-    accessMode: ReadWriteOnce
-    size: 4Gi
-    annotations: {}
-    resourcePolicy: "keep"
-    
-  podAnnotations: { }
-  podSecurityContext: { }
-  securityContext: { }
-  resources: { }
-  nodeSelector: { }
-  tolerations: [ ]
-  affinity: { }
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+postgresql:
+  enabled: true
+  nameOverride: hertzbeat-postgresql
+  auth:
+    username: postgres
+    password: postgres
+    database: hertzbeat
 
 tsdb:
   image:
     repository: victoriametrics/victoria-metrics
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.95.1"
-  timezone: "Asia/Shanghai"
+    tag: 'v1.95.1'
+  timezone: 'Asia/Shanghai'
   persistence:
     enabled: true
-    existingClaim: ""
-    storageClass: ""
-    subPath: ""
+    existingClaim: ''
+    storageClass: ''
+    subPath: ''
     accessMode: ReadWriteOnce
     size: 4Gi
     annotations: {}
-    resourcePolicy: "keep"
-  
-  podAnnotations: { }
-  podSecurityContext: { }
-  securityContext: { }
-  resources: { }
-  nodeSelector: { }
-  tolerations: [ ]
-  affinity: { }
+    resourcePolicy: 'keep'
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 
 # Expose Network
 expose:
@@ -128,16 +110,16 @@ expose:
       nodePort: 31157
   loadBalancer:
     # Set the IP if the LoadBalancer supports assigning IP
-    ip: ""
+    ip: ''
     ports:
       # The service port Harbor listens on when serving HTTP
       port: 1157
-    sourceRanges: [ ]
+    sourceRanges: []
   ingress:
     enabled: true
-    ingressClassName: ""
-    host: "hertzbeat.domain"
-    annotations: {}    
+    ingressClassName: ''
+    host: 'hertzbeat.domain'
+    annotations: {}
     tls:
       enabled: true
       secretName: your-tls-secret
