@@ -36,7 +36,7 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{- define "hertzbeat.database" -}}
-{{- printf "%s-postgresql" (include "hertzbeat.fullname" .) -}}
+{{- printf "%s-postgresql.%s.svc.cluster.local" (include "hertzbeat.fullname" .) .Release.Namespace -}}
 {{- end -}}
 
 {{/*
