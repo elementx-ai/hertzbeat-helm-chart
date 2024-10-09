@@ -3,6 +3,29 @@ entries:
   hertzbeat:
   - apiVersion: v2
     appVersion: v1.6.0
+    created: "2024-10-09T00:42:06.385013122Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.6.7
+    description: An open-source, real-time monitoring system with custom monitoring,
+      high performance cluster and agentless capabilities.
+    digest: 5f9856f42ab2c95aaed9ece4505f70913db3865831faee5bd24133ad2857e501
+    home: https://hertzbeat.apache.org/
+    icon: https://raw.githubusercontent.com/apache/hertzbeat/master/home/static/img/hertzbeat-logo.png
+    maintainers:
+    - email: dev@hertzbeat.apache.org
+      name: hertzbeat-dev
+    name: hertzbeat
+    sources:
+    - https://github.com/apache/hertzbeat
+    type: application
+    urls:
+    - https://github.com/elementx-ai/hertzbeat-helm-chart/releases/download/hertzbeat-1.6.7/hertzbeat-1.6.7.tgz
+    version: 1.6.7
+  - apiVersion: v2
+    appVersion: v1.6.0
     created: "2024-10-09T00:36:42.43209903Z"
     dependencies:
     - condition: postgresql.enabled
@@ -162,4 +185,4 @@ entries:
     urls:
     - https://github.com/elementx-ai/hertzbeat-helm-chart/releases/download/hertzbeat-1.6.0/hertzbeat-1.6.0.tgz
     version: 1.6.0
-generated: "2024-10-09T00:36:42.432155316Z"
+generated: "2024-10-09T00:42:06.385037517Z"
