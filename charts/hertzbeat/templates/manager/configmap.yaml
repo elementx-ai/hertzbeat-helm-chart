@@ -23,9 +23,6 @@ metadata:
     {{- include "hertzbeat.labels" . | nindent 4 }}
 data:
   application.yml: |+
-    logging:
-      level:
-        root: DEBUG
     server:
       port: 1157
     spring:
@@ -47,6 +44,9 @@ data:
         exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration, org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
       freemarker:
         enabled: false
+      logging:
+        level:
+          root: DEBUG  # Set log level to DEBUG
     management:
       health:
         mail:
@@ -73,7 +73,7 @@ data:
     spring:
       config:
         activate:
-          on-profile: prod
+          on-profile: dev
 
       datasource:
         driver-class-name: org.postgresql.Driver
